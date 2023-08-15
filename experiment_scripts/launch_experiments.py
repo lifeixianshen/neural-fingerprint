@@ -77,11 +77,11 @@ def generate_params(bounds, N_jobs):
 
 def outputfile(jobnum, dataset, model, fold):
     debug_text = '_DEBUG' if __debug__ else ''
-    return 'results{}/{}_{}_{}_{}.json'.format(debug_text, fold, jobnum, dataset, model)
+    return f'results{debug_text}/{fold}_{jobnum}_{dataset}_{model}.json'
 
 def outputfile_test(dataset, model, fold):
     debug_text = '_DEBUG' if __debug__ else ''
-    return 'test_results{}/test_{}_{}_{}.json'.format(debug_text, fold, dataset, model)
+    return f'test_results{debug_text}/test_{fold}_{dataset}_{model}.json'
 
 def build_params_string(jobnum, varied_params, dataset, model, train_slices, test_slices, fold):
     params = dict(num_records = 20,
@@ -120,8 +120,8 @@ def runjob_sbatch(params_string, outfile):
     with infile_obj as f:
         f.write(params_string)
     infile = infile_obj.name
-    logfile = outfile + '_log.txt'
-    bash_script = '#!/bin/bash\n{} >{} <{}'.format(experiment_command, outfile, infile)
+    logfile = f'{outfile}_log.txt'
+    bash_script = f'#!/bin/bash\n{experiment_command} >{outfile} <{infile}'
     p = subprocess.Popen(make_sbatch_args(logfile), stdin=subprocess.PIPE)
     p.communicate(bash_script)
     if p.returncode != 0:
@@ -129,7 +129,7 @@ def runjob_sbatch(params_string, outfile):
 
 def generate_slice_lists(num_folds, N_data):
     chunk_boundaries = map(int, np.linspace(0, N_data, num_folds + 1))
-    chunk_slices = zip(chunk_boundaries[0:-1], chunk_boundaries[1:])
+    chunk_slices = zip(chunk_boundaries[:-1], chunk_boundaries[1:])
 
     for f_ix in range(num_folds):
         validation_chunk_ixs = [f_ix]

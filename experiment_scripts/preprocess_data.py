@@ -110,5 +110,5 @@ for name, vals in data.iteritems():
     plt.hist(vals, 50)
     plt.xlabel(name)
     plt.ylabel("Frequency")
-    plt.savefig('histograms/' + name + '.png')
+    plt.savefig(f'histograms/{name}.png')
     plt.close()

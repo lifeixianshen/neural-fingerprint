@@ -14,10 +14,7 @@ from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 
 def slicedict(d, ixs):
-    newd = {}
-    for key in d:
-        newd[key] = d[key][ixs]
-    return newd
+    return {key: d[key][ixs] for key in d}
 
 def randomize_order(data):
     N = len(data.values()[0])
@@ -65,10 +62,8 @@ for infilename in filenames:
 
     def make_fun_run_only_on_good(fun):
         def new_fun(mol):
-            if mol is not None:
-                return fun(mol)
-            else:
-                return np.NaN
+            return fun(mol) if mol is not None else np.NaN
+
         return new_fun
 
     print "Computing RDKit features on each molecule..."

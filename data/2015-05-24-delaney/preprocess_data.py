@@ -11,10 +11,7 @@ from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors
 
 def slicedict(d, ixs):
-    newd = {}
-    for key in d:
-        newd[key] = d[key][ixs]
-    return newd
+    return {key: d[key][ixs] for key in d}
 
 def randomize_order(data):
     N = len(data.values()[0])

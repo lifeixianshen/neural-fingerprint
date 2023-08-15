@@ -56,10 +56,9 @@ class memoize(object):
     def __call__(self, *args):
         if args in self.cache:
             return self.cache[args]
-        else:
-            result = self.func(*args)
-            self.cache[args] = result
-            return result
+        result = self.func(*args)
+        self.cache[args] = result
+        return result
 
     def __get__(self, obj, objtype):
         return partial(self.__call__, obj)

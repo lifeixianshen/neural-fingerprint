@@ -60,4 +60,4 @@ def safe_get(varname):
     if varname in os.environ:
         return os.environ[varname]
     else:
-        raise Exception("%s environment variable not set" % varname)
+        raise Exception(f"{varname} environment variable not set")

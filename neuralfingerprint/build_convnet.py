@@ -34,7 +34,7 @@ def matmult_neighbors(array_rep, atom_features, bond_features, get_weights):
     return np.concatenate(activations_by_degree, axis=0)
 
 def weights_name(layer, degree):
-    return "layer " + str(layer) + " degree " + str(degree) + " filter"
+    return f"layer {str(layer)} degree {str(degree)} filter"
 
 def build_convnet_fingerprint_fun(num_hidden_features=[100, 100], fp_length=512,
                                   normalize=True, activation_function=relu,

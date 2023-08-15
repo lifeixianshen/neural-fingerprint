@@ -56,7 +56,7 @@ all_radii = range(params['fp_depth'] + 1)
 # Plotting parameters
 num_figs_per_fp = 11
 figsize = (100, 100)
-highlight_color = (30.0/255.0, 100.0/255.0, 255.0/255.0)  # A nice light blue.
+highlight_color = 30.0/255.0, 100.0/255.0, 1.0
 
 
 def parse_training_params(params):
